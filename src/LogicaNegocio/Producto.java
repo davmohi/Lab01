@@ -55,18 +55,36 @@ public class Producto {
         this.nombre = nombre;
     }
     
-      public BigDecimal getPrecio(){
+    public BigDecimal getPrecio(){
         return precio;
+    }
+    public int getPorcentaje(){
+        if(tipo.equals("Canasta Basica")||tipo.equals("Can. Basca")||tipo.equals("Basica"))
+            return 5;
+        if(tipo.equals("Popular"))
+            return 10;
+        if(tipo.equals("Suntuario"))
+            return 15;
+        return 0;
+    }
+    public BigDecimal getImpuesto(){
+        return precio.multiply(new BigDecimal(getPorcentaje()/100));
+    }
+    public BigDecimal getPrecioFinal(){
+        return precio.add(getImpuesto());
     }
     
     public void setPrecio(BigDecimal precio){
         this.precio = precio;
     }
-      public String getTipo(){
+    public String getTipo(){
         return tipo;
     }
     
     public void setTipo(String tipo){
         this.tipo = tipo;
+    }
+    public String toStrint(){
+        return codigo+"|"+nombre+"|"+importado+"|"+precio+"|"+tipo+"|"+getPorcentaje()+"|"+getImpuesto()+"|"+getPrecioFinal();
     }
 }
